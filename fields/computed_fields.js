@@ -655,7 +655,7 @@
       return getcomp('facebook_frontpage', function(data){
         var pagedom, userelem;
         pagedom = $(data);
-        userelem = pagedom.find('._2dpe._1ayn')[0];
+        userelem = pagedom.find('[data-gt=\'{"chrome_nav_item":"timeline_chrome"}\']')[0];
         console.log(userelem.innerText);
         return callback(userelem.innerText);
       });
@@ -664,7 +664,7 @@
       return getcomp('facebook_frontpage', function(data){
         var pagedom, userelem;
         pagedom = $(data);
-        userelem = pagedom.find('._2dpe._1ayn')[0];
+        userelem = pagedom.find('[data-gt=\'{"chrome_nav_item":"timeline_chrome"}\']')[0];
         console.log(userelem.href);
         return callback(userelem.href);
       });

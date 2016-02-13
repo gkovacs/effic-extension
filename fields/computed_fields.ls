@@ -344,14 +344,17 @@ export computed_fields =
   facebook_fullname: (callback) ->
     data <- getcomp 'facebook_frontpage'
     pagedom = $(data)
-    userelem = pagedom.find('._2dpe._1ayn')[0]
+    #userelem = pagedom.find('._2dpe._1ayn')[0]
+    userelem = pagedom.find('[data-gt=\'{"chrome_nav_item":"timeline_chrome"}\']')[0]
+    # data-gt="{&quot;chrome_nav_item&quot;:&quot;timeline_chrome&quot;}"
     console.log userelem.innerText
     callback userelem.innerText
 
   facebook_id: (callback) ->
     data <- getcomp 'facebook_frontpage'
     pagedom = $(data)
-    userelem = pagedom.find('._2dpe._1ayn')[0]
+    #userelem = pagedom.find('._2dpe._1ayn')[0]
+    userelem = pagedom.find('[data-gt=\'{"chrome_nav_item":"timeline_chrome"}\']')[0]
     console.log userelem.href
     callback userelem.href
 
