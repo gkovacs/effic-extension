@@ -1,0 +1,56 @@
+manifest_version: 2
+name: effic
+short_name: effic
+description: Increase your online efficiency
+version: '1.0.8'
+permissions:
+  - tabs
+  - webNavigation
+  - unlimitedStorage
+  - history
+  - idle
+  - 'http://*/'
+  - 'https://*/'
+background:
+  persistent: true
+  scripts:
+    - bower_components/jquery/dist/jquery.min.js
+    - bower_components/async/dist/async.min.js
+    - bower_components/js-yaml/dist/js-yaml.min.js
+    - prelude.js
+    - minimongo.js
+    - memoize.js
+    - sizeof.compressed.js
+    - background_common.js
+    - fields/computed_fields.js
+    - fields/get_field.js
+    - background_history.js
+    - background_utils.js
+content_scripts:
+  - matches:
+      - 'https://*/*'
+      - 'http://*/*'
+    js:
+      - bower_components/sweetalert/dist/sweetalert.min.js
+      - content_script.js
+    css:
+      - bower_components/sweetalert/dist/sweetalert.css
+    run_at: document_end
+#page_action:
+#browser_action:
+#  default_icon: 
+#    19: icon_19.png
+#    38: icon_38.png
+#  default_popup: popup.html
+#options_ui:
+#  page: options.html
+#  chrome_style: false
+#  open_in_tab: true
+externally_connectable:
+  #ids:
+  #  - lmhkdhimjgolapmhllfodcmmibjmmdoi
+  matches:
+    - '*://localhost:*/*'
+    - '*://effic.herokuapp.com/*'
+key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxD4UtAX7JkCi1B3FsfHs9tHqT4ODgZ7RSBA60DmK5gK5HRsD0/Ls3LQJ7vs1xntVTIrVgVn1HGBM8d/ZBF1H7Vtm47mkh3K2ZhylD2S9aeKb9XfUji9tokCQDQy2MmgKWWZpSzSbs+OpWCLNcSEHAQLsKPYISoMSUVfOcYVpH+E3K00JbWuh81T8ZCmdEviLtA7EtTFtYcTuYx+L/6mBlGXZFd0cJLOUKKhSgqm9Dd3ZQWOSe6coT9YRni0UUmWSsKSgLNl000Fcq3WRGlGbimMpSORw8sYwFp2vVJkIy2QBImeinUNqKnWkdaX0fBWqJYUR2L4suCN5hSZtbQTqXwIDAQAB
+
