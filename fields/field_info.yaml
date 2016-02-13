@@ -166,6 +166,10 @@ facebook_frontpage:
   description: Front page contents on Facebook
   type: computed
 
+facebook_loggedin:
+  description: True if logged into facebook, false if not
+  type: computed
+
 facebook_fullname:
   description: Your full name on Facebook
   type: computed

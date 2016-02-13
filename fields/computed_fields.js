@@ -651,11 +651,21 @@
     facebook_frontpage: function(callback){
       return $.get('https://www.facebook.com/', callback);
     },
+    facebook_loggedin: function(callback){
+      return getcomp('facebook_id', function(data){
+        return callback(data !== '');
+      });
+    },
     facebook_fullname: function(callback){
       return getcomp('facebook_frontpage', function(data){
         var pagedom, userelem;
         pagedom = $(data);
-        userelem = pagedom.find('[data-gt=\'{"chrome_nav_item":"timeline_chrome"}\']')[0];
+        userelem = pagedom.find('[data-gt=\'{"chrome_nav_item":"timeline_chrome"}\']');
+        if (userelem != null && userelem[0] != null) {
+          userelem = userelem[0];
+        } else {
+          return callback('');
+        }
         console.log(userelem.innerText);
         return callback(userelem.innerText);
       });
@@ -664,7 +674,12 @@
       return getcomp('facebook_frontpage', function(data){
         var pagedom, userelem;
         pagedom = $(data);
-        userelem = pagedom.find('[data-gt=\'{"chrome_nav_item":"timeline_chrome"}\']')[0];
+        userelem = pagedom.find('[data-gt=\'{"chrome_nav_item":"timeline_chrome"}\']');
+        if (userelem != null && userelem[0] != null) {
+          userelem = userelem[0];
+        } else {
+          return callback('');
+        }
         console.log(userelem.href);
         return callback(userelem.href);
       });
