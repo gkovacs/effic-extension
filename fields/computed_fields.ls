@@ -341,11 +341,18 @@ export computed_fields =
   facebook_frontpage: (callback) ->
     $.get 'https://www.facebook.com/', callback
 
+  facebook_userpage: (callback) ->
+    userpage_url <- getcomp 'facebook_id'
+    $.get userpage_url, (data) ->
+      data = data.split('<!-- <div').join('<div>')
+      data = data.split('</div> -->').join('</div>')
+      callback data
+
   facebook_loggedin: (callback) ->
     data <- getcomp 'facebook_id'
     callback (data != '')
 
-  facebook_fullname: (callback) ->
+  facebook_shortname: (callback) ->
     data <- getcomp 'facebook_frontpage'
     pagedom = $(data)
     #userelem = pagedom.find('._2dpe._1ayn')[0]
@@ -358,6 +365,12 @@ export computed_fields =
     console.log userelem.innerText
     return callback userelem.innerText
 
+  facebook_fullname: (callback) ->
+    data <- getcomp 'facebook_userpage'
+    pagedom = $(data)
+    userelem = pagedom.find('#fb-timeline-cover-name')
+    callback userelem.text()
+
   facebook_id: (callback) ->
     data <- getcomp 'facebook_frontpage'
     pagedom = $(data)
@@ -369,5 +382,22 @@ export computed_fields =
       return callback ''
     console.log userelem.href
     return callback userelem.href
+
+  facebook_profilepic_small: (callback) ->
+    data <- getcomp 'facebook_frontpage'
+    pagedom = $(data)
+    userelem = pagedom.find('[data-gt=\'{"chrome_nav_item":"timeline_chrome"}\']')
+    imgelem = userelem.find('img')
+    if imgelem? and imgelem[0]?
+      imgelem = imgelem[0]
+    else
+      return callback ''
+    console.log imgelem.src
+    return callback imgelem.src
+
+  facebook_profilepic: (callback) ->
+    data <- getcomp 'facebook_userpage'
+    pagedom = $(data)
+    return callback pagedom.find('img.profilePic').attr('src')
 
 

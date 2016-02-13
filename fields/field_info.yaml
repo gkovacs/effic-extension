@@ -170,10 +170,22 @@ facebook_loggedin:
   description: True if logged into facebook, false if not
   type: computed
 
+facebook_shortname:
+  description: Your short name on Facebook
+  type: computed
+
 facebook_fullname:
   description: Your full name on Facebook
   type: computed
 
 facebook_id:
   description: Your user id on Facebook
+  type: computed
+
+facebook_profilepic_small:
+  description: Your small profile pic on Facebook
+  type: computed
+
+facebook_profilepic:
+  description: Your profile pic on Facebook
   type: computed

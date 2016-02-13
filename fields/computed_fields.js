@@ -651,12 +651,21 @@
     facebook_frontpage: function(callback){
       return $.get('https://www.facebook.com/', callback);
     },
+    facebook_userpage: function(callback){
+      return getcomp('facebook_id', function(userpage_url){
+        return $.get(userpage_url, function(data){
+          data = data.split('<!-- <div').join('<div>');
+          data = data.split('</div> -->').join('</div>');
+          return callback(data);
+        });
+      });
+    },
     facebook_loggedin: function(callback){
       return getcomp('facebook_id', function(data){
         return callback(data !== '');
       });
     },
-    facebook_fullname: function(callback){
+    facebook_shortname: function(callback){
       return getcomp('facebook_frontpage', function(data){
         var pagedom, userelem;
         pagedom = $(data);
@@ -668,6 +677,14 @@
         }
         console.log(userelem.innerText);
         return callback(userelem.innerText);
+      });
+    },
+    facebook_fullname: function(callback){
+      return getcomp('facebook_userpage', function(data){
+        var pagedom, userelem;
+        pagedom = $(data);
+        userelem = pagedom.find('#fb-timeline-cover-name');
+        return callback(userelem.text());
       });
     },
     facebook_id: function(callback){
@@ -682,6 +699,28 @@
         }
         console.log(userelem.href);
         return callback(userelem.href);
+      });
+    },
+    facebook_profilepic_small: function(callback){
+      return getcomp('facebook_frontpage', function(data){
+        var pagedom, userelem, imgelem;
+        pagedom = $(data);
+        userelem = pagedom.find('[data-gt=\'{"chrome_nav_item":"timeline_chrome"}\']');
+        imgelem = userelem.find('img');
+        if (imgelem != null && imgelem[0] != null) {
+          imgelem = imgelem[0];
+        } else {
+          return callback('');
+        }
+        console.log(imgelem.src);
+        return callback(imgelem.src);
+      });
+    },
+    facebook_profilepic: function(callback){
+      return getcomp('facebook_userpage', function(data){
+        var pagedom;
+        pagedom = $(data);
+        return callback(pagedom.find('img.profilePic').attr('src'));
       });
     }
   };
