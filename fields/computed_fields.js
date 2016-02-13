@@ -648,6 +648,26 @@
         return callback(earliest_time);
       });
     },
-    chrome_history_facebook_past_24_hours: function(callback){}
+    facebook_frontpage: function(callback){
+      return $.get('https://www.facebook.com/', callback);
+    },
+    facebook_fullname: function(callback){
+      return getcomp('facebook_frontpage', function(data){
+        var pagedom, userelem;
+        pagedom = $(data);
+        userelem = pagedom.find('._2dpe._1ayn')[0];
+        console.log(userelem.innerText);
+        return callback(userelem.innerText);
+      });
+    },
+    facebook_id: function(callback){
+      return getcomp('facebook_frontpage', function(data){
+        var pagedom, userelem;
+        pagedom = $(data);
+        userelem = pagedom.find('._2dpe._1ayn')[0];
+        console.log(userelem.href);
+        return callback(userelem.href);
+      });
+    }
   };
 }).call(this);

@@ -162,3 +162,14 @@ browsing_time_collection_starttime:
   description: Time at which collection of browsing time was started
   type: computed
 
+facebook_frontpage:
+  description: Front page contents on Facebook
+  type: computed
+
+facebook_fullname:
+  description: Your full name on Facebook
+  type: computed
+
+facebook_id:
+  description: Your user id on Facebook
+  type: computed

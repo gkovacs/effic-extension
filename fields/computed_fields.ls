@@ -338,7 +338,21 @@ export computed_fields =
       earliest_time = Math.min(earliest_time, timestamp)
     callback earliest_time
 
-  chrome_history_facebook_past_24_hours: (callback) ->
+  facebook_frontpage: (callback) ->
+    $.get 'https://www.facebook.com/', callback
 
+  facebook_fullname: (callback) ->
+    data <- getcomp 'facebook_frontpage'
+    pagedom = $(data)
+    userelem = pagedom.find('._2dpe._1ayn')[0]
+    console.log userelem.innerText
+    callback userelem.innerText
+
+  facebook_id: (callback) ->
+    data <- getcomp 'facebook_frontpage'
+    pagedom = $(data)
+    userelem = pagedom.find('._2dpe._1ayn')[0]
+    console.log userelem.href
+    callback userelem.href
 
 
