@@ -126,12 +126,28 @@ chrome_history_pages_past_24_hours:
   description: Pages you have visited in the past 24 hours
   type: computed
 
+chrome_history_pages_past_week:
+  description: Pages you have visited in the past week
+  type: computed
+
+chrome_history_pages_past_month:
+  description: Pages you have visited in the past month
+  type: computed
+
 chrome_history_visits:
   description: When you visited each page
   type: computed
 
 chrome_history_visits_past_24_hours:
   description: When you visited each page in the past 24 hours
+  type: computed
+
+chrome_history_visits_past_week:
+  description: When you visited each page in the past week
+  type: computed
+
+chrome_history_visits_past_month:
+  description: When you visited each page in the past month
   type: computed
 
 chrome_history_timespent_url:
@@ -142,12 +158,28 @@ chrome_history_timespent_url_past_24_hours:
   description: Time spent on each url in the past 24 hours
   type: computed
 
+chrome_history_timespent_url_past_week:
+  description: Time spent on each url in the past week
+  type: computed
+
+chrome_history_timespent_url_past_month:
+  description: Time spent on each url in the past month
+  type: computed
+
 chrome_history_timespent_domain:
   description: Time spent on each domain
   type: computed
 
 chrome_history_timespent_domain_past_24_hours:
   description: Time spent on each domain in the past 24 hours
+  type: computed
+
+chrome_history_timespent_domain_past_week:
+  description: Time spent on each domain in the past week
+  type: computed
+
+chrome_history_timespent_domain_past_month:
+  description: Time spent on each domain in the past month
   type: computed
 
 real_timespent_domain:

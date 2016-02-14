@@ -33,6 +33,16 @@
   "content_scripts": [
     {
       "matches": [
+        "https://www.facebook.com/",
+        "http://www.facebook.com/"
+      ],
+      "js": [
+        "bower_components/jquery/dist/jquery.min.js",
+        "facebook.js"
+      ]
+    },
+    {
+      "matches": [
         "https://*/*",
         "http://*/*"
       ],

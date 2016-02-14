@@ -171,8 +171,60 @@ export computed_fields =
     results <- chrome.history.search {text: '', startTime: yesterday, maxResults: 2**31-1}
     callback results
 
+  chrome_history_pages_past_week: (callback) ->
+    yesterday = Date.now() - 7*24*3600*1000
+    results <- chrome.history.search {text: '', startTime: yesterday, maxResults: 2**31-1}
+    callback results
+
+  chrome_history_pages_past_month: (callback) ->
+    yesterday = Date.now() - 30*24*3600*1000
+    results <- chrome.history.search {text: '', startTime: yesterday, maxResults: 2**31-1}
+    callback results
+
   chrome_history_visits_past_24_hours: (callback) ->
     results <- getcomp 'chrome_history_pages_past_24_hours'
+    url_list = []
+    seen_urls = {}
+    for x in results
+      if not x?
+        continue
+      url = x.url
+      if not url? or url == ''
+        continue
+      if seen_urls[url]?
+        continue
+      seen_urls[url] = true
+      url_list.push url
+    url_to_visits = {}
+    <- async.eachSeries url_list, (url, donecb) ->
+      chrome.history.getVisits {url: url}, (visits) ->
+        url_to_visits[url] = visits
+        return donecb()
+    callback url_to_visits
+
+  chrome_history_visits_past_week: (callback) ->
+    results <- getcomp 'chrome_history_pages_past_week'
+    url_list = []
+    seen_urls = {}
+    for x in results
+      if not x?
+        continue
+      url = x.url
+      if not url? or url == ''
+        continue
+      if seen_urls[url]?
+        continue
+      seen_urls[url] = true
+      url_list.push url
+    url_to_visits = {}
+    <- async.eachSeries url_list, (url, donecb) ->
+      chrome.history.getVisits {url: url}, (visits) ->
+        url_to_visits[url] = visits
+        return donecb()
+    callback url_to_visits
+
+  chrome_history_visits_past_month: (callback) ->
+    results <- getcomp 'chrome_history_pages_past_month'
     url_list = []
     seen_urls = {}
     for x in results
@@ -238,6 +290,56 @@ export computed_fields =
         url_to_timespent[url] += visit_duration
     callback url_to_timespent
 
+  chrome_history_timespent_url_past_week: (callback) ->
+    url_to_visits <- getcomp 'chrome_history_visits_past_week'
+    url_and_visit_time = []
+    for url,visits of url_to_visits
+      for visit in visits
+        visitTime = visit.visitTime
+        url_and_visit_time.push {url, visitTime}
+    url_and_visit_time = prelude.sortBy (.visitTime), url_and_visit_time
+    url_to_timespent = {}
+    yesterday = Date.now() - 7*24*3600*1000
+    for item,idx in url_and_visit_time
+      {visitTime, url} = item
+      if visitTime < yesterday
+        continue
+      nextitem = url_and_visit_time[idx+1]
+      visit_duration = 30*1000 # 30 seconds in milliseconds
+      if nextitem?
+        nextVisitTime = nextitem.visitTime
+        visit_duration = Math.min(visit_duration, nextVisitTime - visitTime)
+      if not url_to_timespent[url]?
+        url_to_timespent[url] = visit_duration
+      else
+        url_to_timespent[url] += visit_duration
+    callback url_to_timespent
+
+  chrome_history_timespent_url_past_month: (callback) ->
+    url_to_visits <- getcomp 'chrome_history_visits_past_month'
+    url_and_visit_time = []
+    for url,visits of url_to_visits
+      for visit in visits
+        visitTime = visit.visitTime
+        url_and_visit_time.push {url, visitTime}
+    url_and_visit_time = prelude.sortBy (.visitTime), url_and_visit_time
+    url_to_timespent = {}
+    yesterday = Date.now() - 30*24*3600*1000
+    for item,idx in url_and_visit_time
+      {visitTime, url} = item
+      if visitTime < yesterday
+        continue
+      nextitem = url_and_visit_time[idx+1]
+      visit_duration = 30*1000 # 30 seconds in milliseconds
+      if nextitem?
+        nextVisitTime = nextitem.visitTime
+        visit_duration = Math.min(visit_duration, nextVisitTime - visitTime)
+      if not url_to_timespent[url]?
+        url_to_timespent[url] = visit_duration
+      else
+        url_to_timespent[url] += visit_duration
+    callback url_to_timespent
+
   chrome_history_timespent_url: (callback) ->
     url_to_visits <- getcomp 'chrome_history_visits'
     url_and_visit_time = []
@@ -280,6 +382,36 @@ export computed_fields =
 
   chrome_history_timespent_domain_past_24_hours: (callback) ->
     results <- getcomp 'chrome_history_timespent_url_past_24_hours'
+    domain_to_timespent = {}
+    domain_matcher = new RegExp(':\/\/(.[^\/]+)(.*)')
+    for url,timespent of results
+      domain_matches = url.match(domain_matcher)
+      if not domain_matches? or domain_matches.length < 2
+        continue
+      domain = domain_matches[1]
+      if not domain_to_timespent[domain]?
+        domain_to_timespent[domain] = timespent
+      else
+        domain_to_timespent[domain] += timespent
+    callback domain_to_timespent
+
+  chrome_history_timespent_domain_past_week: (callback) ->
+    results <- getcomp 'chrome_history_timespent_url_past_week'
+    domain_to_timespent = {}
+    domain_matcher = new RegExp(':\/\/(.[^\/]+)(.*)')
+    for url,timespent of results
+      domain_matches = url.match(domain_matcher)
+      if not domain_matches? or domain_matches.length < 2
+        continue
+      domain = domain_matches[1]
+      if not domain_to_timespent[domain]?
+        domain_to_timespent[domain] = timespent
+      else
+        domain_to_timespent[domain] += timespent
+    callback domain_to_timespent
+
+  chrome_history_timespent_domain_past_month: (callback) ->
+    results <- getcomp 'chrome_history_timespent_url_past_month'
     domain_to_timespent = {}
     domain_matcher = new RegExp(':\/\/(.[^\/]+)(.*)')
     for url,timespent of results
