@@ -3,7 +3,7 @@
   "name": "effic",
   "short_name": "effic",
   "description": "Increase your online efficiency",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "permissions": [
     "tabs",
     "webNavigation",
@@ -26,8 +26,10 @@
       "background_common.js",
       "fields/computed_fields.js",
       "fields/get_field.js",
+      "default_var_vals.js",
       "background_history.js",
-      "background_utils.js"
+      "background_utils.js",
+      "background.js"
     ]
   },
   "content_scripts": [
@@ -38,6 +40,7 @@
       ],
       "js": [
         "bower_components/jquery/dist/jquery.min.js",
+        "default_var_vals.js",
         "facebook.js"
       ]
     },
@@ -56,6 +59,11 @@
       "run_at": "document_end"
     }
   ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": false,
+    "open_in_tab": true
+  },
   "externally_connectable": {
     "matches": [
       "*://localhost:*/*",

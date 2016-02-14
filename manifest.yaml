@@ -2,7 +2,7 @@ manifest_version: 2
 name: effic
 short_name: effic
 description: Increase your online efficiency
-version: '1.0.10'
+version: '1.0.11'
 permissions:
   - tabs
   - webNavigation
@@ -24,14 +24,17 @@ background:
     - background_common.js
     - fields/computed_fields.js
     - fields/get_field.js
+    - default_var_vals.js
     - background_history.js
     - background_utils.js
+    - background.js
 content_scripts:
   - matches:
       - 'https://www.facebook.com/'
       - 'http://www.facebook.com/'
     js:
       - bower_components/jquery/dist/jquery.min.js
+      - default_var_vals.js
       - facebook.js
   - matches:
       - 'https://*/*'
@@ -48,10 +51,10 @@ content_scripts:
 #    19: icon_19.png
 #    38: icon_38.png
 #  default_popup: popup.html
-#options_ui:
-#  page: options.html
-#  chrome_style: false
-#  open_in_tab: true
+options_ui:
+  page: options.html
+  chrome_style: false
+  open_in_tab: true
 externally_connectable:
   #ids:
   #  - lmhkdhimjgolapmhllfodcmmibjmmdoi

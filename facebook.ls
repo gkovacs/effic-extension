@@ -4,7 +4,23 @@ time_started = Date.now()
 
 root = exports ? this
 
-baseurl = 'https://localhost:8081'
+#baseurl = 'https://localhost:8081'
+
+getvar = (varname, callback) ->
+  chrome.runtime.sendMessage {type: 'getvar', data: varname}, (data) ->
+    if not data?
+      if default_var_vals[varname]?
+        data = default_var_vals[varname]
+    callback data
+
+console.log 'fetching baseurl'
+
+baseurl <- getvar 'baseurl'
+console.log 'baseurl is ' + baseurl
+iframewidth <- getvar 'iframewidth'
+console.log 'iframewidth is ' + iframewidth
+iframeheight <- getvar 'iframeheight'
+console.log 'iframeheight is ' + iframeheight
 
 insertBeforeItem = (jfeeditem) ->
   #jfeeditem.before $('<div>').text('newfoobar')
@@ -20,8 +36,8 @@ insertBeforeItem = (jfeeditem) ->
     'background-color': '#e9eaed'
   })
   iframe = $('<iframe>').css({
-    width: '495px'
-    height: '400px'
+    width: iframewidth+'px'
+    height: iframeheight+'px'
     'background-color': 'white'
   }).attr('src', baseurl + '/facebook_message?time_started=' + time_started).attr('frameBorder', '0').addClass('feedlearnquiz')#.css({'box-shadow': '0 10px 5px -5px grey'})
   iframe.appendTo(block)
