@@ -3,7 +3,7 @@
   "name": "effic",
   "short_name": "effic",
   "description": "Increase your online efficiency",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "permissions": [
     "tabs",
     "webNavigation",

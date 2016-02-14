@@ -21,6 +21,8 @@ iframewidth <- getvar 'iframewidth'
 console.log 'iframewidth is ' + iframewidth
 iframeheight <- getvar 'iframeheight'
 console.log 'iframeheight is ' + iframeheight
+delayuntilinject <- getvar 'delayuntilinject'
+console.log 'delayuntilinject is ' +  delayuntilinject
 
 insertBeforeItem = (jfeeditem) ->
   #jfeeditem.before $('<div>').text('newfoobar')
@@ -59,6 +61,8 @@ insertIfMissing = ->
         insertBeforeItem $(feeditem)
   return
 
-setInterval ->
-  insertIfMissing()
-, 1000
+setTimeout ->
+  setInterval ->
+    insertIfMissing()
+  , 1000
+, 1000.0*delayuntilinject

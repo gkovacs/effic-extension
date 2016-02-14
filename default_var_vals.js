@@ -3,6 +3,7 @@
   out$.default_var_vals = default_var_vals = {
     baseurl: 'https://effic.herokuapp.com',
     iframewidth: 495,
-    iframeheight: 400
+    iframeheight: 400,
+    delayuntilinject: 0
   };
 }).call(this);

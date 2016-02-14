@@ -4,7 +4,7 @@ getvar = (varname) ->
     data = default_var_vals[varname]
   return data
 
-allvars = <[ baseurl iframewidth iframeheight ]>
+allvars = <[ baseurl iframewidth iframeheight delayuntilinject ]>
 
 export savechanges = ->
   for x in allvars

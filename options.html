@@ -15,13 +15,20 @@ input {
 Here are your options<br>
 
 baseurl: <input id="baseurl">
-<br>common options: https://localhost:8081 https://effic.herokuapp.com
+<br>the page that will be embedded is baseurl/facebook_message ie https://effic.herokuapp.com/facebook_message
+<br>common options: https://effic.herokuapp.com https://localhost:8081
 <br><br>
 iframewidth: <input id="iframewidth">
+<br>width of the injected iframe in pixels
 <br>common options: 495
 <br><br>
 iframeheight: <input id="iframeheight">
+<br>height of the injected iframe in pixels
 <br>common options: 200
+<br><br>
+delayuntilinject: <input id="delayuntilinject">
+<br>number of seconds we should wait until we start injecting the iframes
+<br>common options: 0 60
 <br><br>
 
 <button id="savechanges">Save changes</button>

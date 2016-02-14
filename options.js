@@ -8,7 +8,7 @@
     }
     return data;
   };
-  allvars = ['baseurl', 'iframewidth', 'iframeheight'];
+  allvars = ['baseurl', 'iframewidth', 'iframeheight', 'delayuntilinject'];
   out$.savechanges = savechanges = function(){
     var i$, ref$, len$, x, val, results$ = [];
     for (i$ = 0, len$ = (ref$ = allvars).length; i$ < len$; ++i$) {
