@@ -9,7 +9,7 @@ allvars = <[ baseurl iframewidth iframeheight delayuntilinject ]>
 export savechanges = ->
   for x in allvars
     val = $('#' + x).val()
-    localStorage.setItem(x, val)
+    localStorage.setItem(x, val.trim())
 
 $(document).ready ->
   $('#savechanges').click savechanges

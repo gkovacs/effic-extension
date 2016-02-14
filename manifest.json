@@ -56,7 +56,8 @@
       "css": [
         "bower_components/sweetalert/dist/sweetalert.css"
       ],
-      "run_at": "document_end"
+      "run_at": "document_end",
+      "all_frames": true
     }
   ],
   "options_ui": {

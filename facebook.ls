@@ -24,6 +24,8 @@ console.log 'iframeheight is ' + iframeheight
 delayuntilinject <- getvar 'delayuntilinject'
 console.log 'delayuntilinject is ' +  delayuntilinject
 
+root.itemtype_counter = 0
+
 insertBeforeItem = (jfeeditem) ->
   #jfeeditem.before $('<div>').text('newfoobar')
   #quizid = randstr()
@@ -33,6 +35,10 @@ insertBeforeItem = (jfeeditem) ->
     height: '300px'
   }).attr('src', baseurl + '/facebook_message?time_started=' + time_started).attr('frameBorder', '0').addClass('feedlearnquiz').css({'box-shadow': '0 10px 5px -5px grey'})
   */
+  linkurl = baseurl + '/facebook_message?time_started=' + time_started
+  if root.itemtype_counter % 2 == 1
+    linkurl = baseurl + '/facebook_message_links'
+  root.itemtype_counter += 1
   block = $('<div>').css({
     'padding-bottom': '10px'
     'background-color': '#e9eaed'
@@ -41,7 +47,7 @@ insertBeforeItem = (jfeeditem) ->
     width: iframewidth+'px'
     height: iframeheight+'px'
     'background-color': 'white'
-  }).attr('src', baseurl + '/facebook_message?time_started=' + time_started).attr('frameBorder', '0').addClass('feedlearnquiz')#.css({'box-shadow': '0 10px 5px -5px grey'})
+  }).attr('src', linkurl).attr('frameBorder', '0').addClass('feedlearnquiz')#.css({'box-shadow': '0 10px 5px -5px grey'})
   iframe.appendTo(block)
   jfeeditem.before(block)
   #.attr('id', quizid)

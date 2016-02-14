@@ -14,7 +14,7 @@
     for (i$ = 0, len$ = (ref$ = allvars).length; i$ < len$; ++i$) {
       x = ref$[i$];
       val = $('#' + x).val();
-      results$.push(localStorage.setItem(x, val));
+      results$.push(localStorage.setItem(x, val.trim()));
     }
     return results$;
   };
