@@ -21,4 +21,14 @@
     });
     return true;
   });
+  /*
+  chrome.tabs.onActivated.addListener (activeInfo) ->
+    chrome.tabs.query {}, (tabs) ->
+      #console.log tabs
+      #console.log [x for x in tabs when (x.selected and x.active and x.url? and x.url.indexOf('www.facebook.com') != -1)]
+      is_on_facebook = [x for x in tabs when (x.selected and x.active and x.url? and x.url.indexOf('www.facebook.com') != -1)].length > 0
+      console.log 'is_on_facebook ' + is_on_facebook
+      for tab in tabs
+        chrome.tabs.sendMessage tab.id, {type: 'onfacebook', data: is_on_facebook}
+  */
 }).call(this);

@@ -2,6 +2,15 @@
   var time_started, root, getvar;
   console.log('facebook content script running');
   time_started = Date.now();
+  /*
+  was_on_facebook = true
+  chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
+    if request.type == 'onfacebook'
+      is_on_facebook = request.data
+      if !was_on_facebook and is_on_facebook
+        time_started := Date.now()
+      was_on_facebook := is_on_facebook
+  */
   root = typeof exports != 'undefined' && exports !== null ? exports : this;
   getvar = function(varname, callback){
     return chrome.runtime.sendMessage({

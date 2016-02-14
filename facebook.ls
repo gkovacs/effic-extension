@@ -2,6 +2,16 @@ console.log 'facebook content script running'
 
 time_started = Date.now()
 
+/*
+was_on_facebook = true
+chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
+  if request.type == 'onfacebook'
+    is_on_facebook = request.data
+    if !was_on_facebook and is_on_facebook
+      time_started := Date.now()
+    was_on_facebook := is_on_facebook
+*/
+
 root = exports ? this
 
 #baseurl = 'https://localhost:8081'
